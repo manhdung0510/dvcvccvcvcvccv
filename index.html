@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UniPass - Mua bán đồ cũ sinh viên, giá tốt, kết nối cộng đồng trường học.">
+  <title>UniPass - Đồ cũ, giá tốt. Kết nối sinh viên.</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ====== HEADER ====== -->
+  <header class="header">
+    <div class="container">
+      <div class="header-top">
+        <a href="#" class="logo">
+          <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+          UniPass
+        </a>
+        <div class="search-bar">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="search-input" placeholder="Bạn đang tìm món đồ gì?">
+        </div>
+        <div class="location-wrapper">
+          <button class="location-selector" id="location-selector">
+            <i class="fas fa-map-marker-alt loc-icon"></i>
+            <span id="location-text">Chọn trường</span>
+            <i class="fas fa-chevron-down" style="font-size:10px;margin-left:4px;"></i>
+          </button>
+          <div class="location-dropdown hidden" id="location-dropdown">
+            <div class="loc-search-wrapper">
+              <i class="fas fa-search loc-search-icon"></i>
+              <input type="text" id="loc-search" class="loc-search-input" placeholder="Tìm trường đại học..." autocomplete="off">
+            </div>
+            <div class="loc-option" data-value="Tất cả">Tất cả</div>
+            <div id="loc-list" class="loc-list">
+              <div class="loc-loading"><i class="fas fa-spinner fa-spin"></i> Đang tải danh sách trường...</div>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="icon-btn" id="btn-notifications" title="Thông báo">
+            <i class="fas fa-bell"></i>
+            <span class="badge"></span>
+          </button>
+          <button class="icon-btn" id="btn-cart" title="Giỏ hàng">
+            <i class="fas fa-shopping-cart"></i>
+          </button>
+          <button class="btn-sell" id="btn-sell">
+            <i class="fas fa-plus"></i>
+            Đăng bán
+          </button>
+          <!-- Avatar: click to login or open user menu -->
+          <div class="avatar" id="user-avatar" title="Đăng nhập">
+            <i class="fas fa-user"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub Navigation -->
+      <nav class="sub-nav">
+        <a href="#" class="active" data-tab="tab-explore" id="nav-explore">Khám phá</a>
+        <a href="#" data-tab="tab-orders" id="nav-orders">Đơn mua</a>
+        <a href="#" data-tab="tab-selling" id="nav-selling">Đơn bán</a>
+        <a href="#" data-tab="tab-posts" id="nav-posts">Tin đã đăng</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ====== USER MENU DROPDOWN ====== -->
+  <div class="user-menu hidden" id="user-menu">
+    <div class="user-menu-header">
+      <div class="user-menu-avatar" id="menu-avatar">A</div>
+      <div>
+        <div class="user-menu-name" id="menu-name">—</div>
+        <div class="user-menu-email" id="menu-email">—</div>
+      </div>
+    </div>
+    <div class="user-menu-divider"></div>
+    <button class="user-menu-item" data-tab="tab-posts"><i class="fas fa-newspaper"></i> Tin đã đăng</button>
+    <button class="user-menu-item" data-tab="tab-orders"><i class="fas fa-shopping-bag"></i> Đơn mua</button>
+    <button class="user-menu-item" id="menu-settings"><i class="fas fa-cog"></i> Cài đặt tài khoản</button>
+    <div class="user-menu-divider"></div>
+    <button class="user-menu-item logout" id="btn-logout"><i class="fas fa-sign-out-alt"></i> Đăng xuất</button>
+  </div>
+
+  <!-- ====== MAIN ====== -->
+  <main class="container">
+
+    <!-- ====== TAB: Khám phá ====== -->
+    <div class="tab-page active" id="tab-explore">
+
+      <!-- Hero Banner -->
+      <section class="hero">
+        <div class="hero-content">
+          <h1>Đồ cũ, giá tốt.<br>Kết nối sinh viên. <span class="emoji">✌️</span></h1>
+          <p>Mua bán thuận tiện ngay trong cộng đồng trường bạn.</p>
+          <div class="hero-buttons">
+            <button class="btn-hero-primary" id="btn-hero-explore">Khám phá ngay <i class="fas fa-arrow-right"></i></button>
+            <button class="btn-hero-secondary" id="btn-hero-sell">Đăng bán ngay <i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <div class="hero-image-placeholder">
+            <i class="fas fa-images"></i>
+            Hình ảnh minh họa
+          </div>
+        </div>
+      </section>
+
+      <!-- Categories -->
+      <section class="category-bar">
+        <div class="category-item" id="cat-books" data-category="Giáo trình, Tài liệu"><div class="category-icon cat-book"><i class="fas fa-book"></i></div>Sách & Giáo trình</div>
+        <div class="category-item" id="cat-tech" data-category="Đồ điện tử"><div class="category-icon cat-tech"><i class="fas fa-laptop"></i></div>Đồ điện tử</div>
+        <div class="category-item" id="cat-study" data-category="Đồ dùng học tập"><div class="category-icon cat-study"><i class="fas fa-pencil-alt"></i></div>Đồ học tập</div>
+        <div class="category-item" id="cat-dorm" data-category="Đồ dùng ký túc xá"><div class="category-icon cat-dorm"><i class="fas fa-bed"></i></div>Đồ ký túc xá</div>
+        <div class="category-item" id="cat-fashion" data-category="Đồ dùng cá nhân"><div class="category-icon cat-fashion"><i class="fas fa-tshirt"></i></div>Thời trang</div>
+        <div class="category-item" id="cat-other" data-category="Khác"><div class="category-icon cat-other"><i class="fas fa-ellipsis-h"></i></div>Khác</div>
+      </section>
+
+      <!-- Sidebar + Products -->
+      <div class="main-layout">
+        <aside class="sidebar">
+          <div class="filter-panel">
+            <div class="filter-title"><i class="fas fa-sliders-h"></i> Bộ lọc</div>
+            <div class="filter-section">
+              <div class="filter-label"><i class="fas fa-tag"></i> Khoảng giá</div>
+              <div class="price-range">
+                <span class="price-unit">Từ</span>
+                <input type="text" class="price-input" id="price-from" placeholder="đ">
+                <span class="price-separator">—</span>
+                <span class="price-unit">Đến</span>
+                <input type="text" class="price-input" id="price-to" placeholder="đ">
+              </div>
+            </div>
+            <div class="filter-section">
+              <div class="filter-label"><i class="fas fa-check-circle"></i> Tình trạng</div>
+              <div class="checkbox-group">
+                <label class="checkbox-item"><input type="checkbox" value="new" class="cond-filter"> Mới 100%</label>
+                <label class="checkbox-item"><input type="checkbox" value="like-new" class="cond-filter"> Như mới (99%)</label>
+                <label class="checkbox-item"><input type="checkbox" value="good" class="cond-filter"> Còn tốt</label>
+                <label class="checkbox-item"><input type="checkbox" value="used" class="cond-filter"> Đã qua sử dụng</label>
+                <label class="checkbox-item"><input type="checkbox" value="need-repair" class="cond-filter"> Cần sửa chữa</label>
+              </div>
+              <div class="custom-condition-input">
+                <input type="text" id="custom-condition" class="price-input" placeholder="Nhập tình trạng khác...">
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="products-section">
+          <div class="products-header">
+            <h2 class="products-title">Sản phẩm gần bạn</h2>
+            <div class="products-header-right">
+              <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all" id="tab-all">Tất cả</button>
+                <button class="filter-tab" data-filter="cheap" id="tab-cheap">Dưới 200.000đ</button>
+                <button class="filter-tab" data-filter="near" id="tab-near">Gần trường</button>
+              </div>
+              <button class="sort-btn" id="btn-sort">
+                <i class="fas fa-sort-amount-down"></i> Mới nhất
+                <i class="fas fa-chevron-down" style="font-size:10px;"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product grid — products added via JS when user posts -->
+          <div class="product-grid" id="product-grid"></div>
+
+          <!-- Empty state shown when no products -->
+          <div class="empty-state" id="empty-products">
+            <div class="empty-state-icon"><i class="fas fa-box-open"></i></div>
+            <h3>Chưa có sản phẩm nào</h3>
+            <p>Hãy là người đầu tiên đăng bán sản phẩm trong cộng đồng!</p>
+            <button class="empty-state-btn" id="btn-empty-sell"><i class="fas fa-plus"></i> Đăng bán ngay</button>
+          </div>
+        </section>
+      </div>
+
+    </div><!-- /tab-explore -->
+
+    <!-- ====== TAB: Đơn mua ====== -->
+    <div class="tab-page" id="tab-orders">
+      <div class="empty-state">
+        <div class="empty-state-icon"><i class="fas fa-shopping-bag"></i></div>
+        <h3>Chưa có đơn mua nào</h3>
+        <p>Các đơn hàng bạn mua sẽ hiển thị ở đây. Hãy khám phá và tìm món đồ phù hợp!</p>
+        <button class="empty-state-btn" data-goto="tab-explore"><i class="fas fa-compass"></i> Khám phá ngay</button>
+      </div>
+    </div>
+
+    <!-- ====== TAB: Đơn bán ====== -->
+    <div class="tab-page" id="tab-selling">
+      <div class="empty-state">
+        <div class="empty-state-icon"><i class="fas fa-store"></i></div>
+        <h3>Chưa có đơn bán nào</h3>
+        <p>Khi có người mua sản phẩm của bạn, đơn bán sẽ xuất hiện tại đây.</p>
+        <button class="empty-state-btn" data-goto="tab-explore"><i class="fas fa-plus"></i> Đăng bán ngay</button>
+      </div>
+    </div>
+
+    <!-- ====== TAB: Tin đã đăng ====== -->
+    <div class="tab-page" id="tab-posts">
+      <div class="empty-state" id="empty-posts">
+        <div class="empty-state-icon"><i class="fas fa-newspaper"></i></div>
+        <h3>Chưa đăng tin nào</h3>
+        <p>Tin đăng bán của bạn sẽ hiển thị ở đây. Bắt đầu đăng bán để chia sẻ với cộng đồng!</p>
+        <button class="empty-state-btn" id="btn-empty-post"><i class="fas fa-edit"></i> Tạo tin đăng</button>
+      </div>
+      <div class="product-grid" id="my-posts-grid"></div>
+    </div>
+
+  </main>
+
+  <!-- ====== MODAL: Đăng nhập / Đăng ký ====== -->
+  <div class="modal-overlay hidden" id="modal-auth">
+    <div class="modal">
+      <button class="modal-close" id="modal-auth-close"><i class="fas fa-times"></i></button>
+
+      <!-- Login Form -->
+      <div class="auth-form" id="form-login">
+        <div class="modal-icon"><i class="fas fa-graduation-cap"></i></div>
+        <h2>Đăng nhập UniPass</h2>
+        <p class="modal-subtitle">Chào mừng bạn quay lại! 👋</p>
+        <div class="form-group">
+          <label for="login-email"><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" id="login-email" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label for="login-password"><i class="fas fa-lock"></i> Mật khẩu</label>
+          <input type="password" id="login-password" placeholder="Nhập mật khẩu">
+        </div>
+        <div class="form-error hidden" id="login-error"></div>
+        <button class="btn-submit" id="btn-do-login">Đăng nhập</button>
+        <p class="form-switch">Chưa có tài khoản? <a href="#" id="switch-to-register">Đăng ký ngay</a></p>
+      </div>
+
+      <!-- Register Form -->
+      <div class="auth-form hidden" id="form-register">
+        <div class="modal-icon"><i class="fas fa-user-plus"></i></div>
+        <h2>Tạo tài khoản</h2>
+        <p class="modal-subtitle">Tham gia cộng đồng sinh viên ngay! 🎓</p>
+        <div class="form-group">
+          <label for="reg-name"><i class="fas fa-user"></i> Họ tên</label>
+          <input type="text" id="reg-name" placeholder="Nguyễn Văn A">
+        </div>
+        <div class="form-group">
+          <label for="reg-email"><i class="fas fa-envelope"></i> Email</label>
+          <input type="email" id="reg-email" placeholder="email@example.com">
+        </div>
+        <div class="form-group">
+          <label for="reg-password"><i class="fas fa-lock"></i> Mật khẩu</label>
+          <input type="password" id="reg-password" placeholder="Tối thiểu 6 ký tự">
+        </div>
+        <div class="form-error hidden" id="reg-error"></div>
+        <button class="btn-submit" id="btn-do-register">Đăng ký</button>
+        <p class="form-switch">Đã có tài khoản? <a href="#" id="switch-to-login">Đăng nhập</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== MODAL: Đăng bán ====== -->
+  <div class="modal-overlay hidden" id="modal-sell">
+    <div class="modal modal-sell">
+      <button class="modal-close" id="modal-sell-close"><i class="fas fa-times"></i></button>
+      <div class="modal-icon sell-icon"><i class="fas fa-camera-retro"></i></div>
+      <h2>Đăng bán sản phẩm</h2>
+      <p class="modal-subtitle">Điền thông tin sản phẩm bạn muốn bán 📦</p>
+
+      <!-- Image Upload -->
+      <div class="form-group">
+        <label><i class="fas fa-camera"></i> Hình ảnh sản phẩm</label>
+        <div class="image-upload-area" id="image-upload-area">
+          <input type="file" id="sell-images" accept="image/*" multiple hidden>
+          <div class="upload-placeholder" id="upload-placeholder">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span>Nhấn để chọn ảnh hoặc kéo thả vào đây</span>
+            <small>Tối đa 5 ảnh, mỗi ảnh dưới 5MB</small>
+          </div>
+          <div class="image-preview-list" id="image-preview-list"></div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sell-name"><i class="fas fa-tag"></i> Tên sản phẩm</label>
+        <input type="text" id="sell-name" placeholder="VD: Máy tính Casio FX-580VN X">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="sell-price"><i class="fas fa-coins"></i> Giá</label>
+          <div class="price-input-wrapper">
+            <input type="text" id="sell-price" placeholder="VD: 350.000" inputmode="numeric">
+            <span class="price-suffix">VNĐ</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="sell-condition"><i class="fas fa-check-circle"></i> Tình trạng</label>
+          <select id="sell-condition" class="filter-select">
+            <option value="new">Mới 100%</option>
+            <option value="like-new">Như mới (99%)</option>
+            <option value="good">Còn tốt</option>
+            <option value="used">Đã qua sử dụng</option>
+            <option value="need-repair">Cần sửa chữa</option>
+            <option value="custom">Khác (tự nhập)</option>
+          </select>
+          <input type="text" id="sell-condition-custom" class="filter-select hidden" placeholder="Nhập tình trạng..." style="margin-top:6px;">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sell-category"><i class="fas fa-th-large"></i> Danh mục</label>
+        <select id="sell-category" class="filter-select">
+          <option value="Giáo trình, Tài liệu">Giáo trình, Tài liệu</option>
+          <option value="Đồ dùng học tập">Đồ dùng học tập</option>
+          <option value="Bàn ghế, Đèn học">Bàn ghế, Đèn học</option>
+          <option value="Đồ điện tử">Đồ điện tử</option>
+          <option value="Xe cộ">Xe cộ</option>
+          <option value="Đồ dùng ký túc xá">Đồ dùng ký túc xá</option>
+          <option value="Đồ dùng cá nhân">Đồ dùng cá nhân</option>
+          <option value="Khác">Khác</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="sell-school"><i class="fas fa-university"></i> Trường</label>
+        <div class="autocomplete-wrapper" id="sell-school-autocomplete">
+          <input type="text" id="sell-school" placeholder="Tìm và chọn trường..." autocomplete="off">
+          <div class="autocomplete-list hidden" id="sell-school-list"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="sell-address"><i class="fas fa-map-marker-alt"></i> Địa chỉ chi tiết <span style="font-weight:400;color:var(--text-muted)">(tuỳ chọn)</span></label>
+        <input type="text" id="sell-address" placeholder="VD: Cổng sau, KTX khu B, Làng ĐH...">
+      </div>
+      <div class="form-group">
+        <label for="sell-desc"><i class="fas fa-align-left"></i> Mô tả</label>
+        <textarea id="sell-desc" rows="3" placeholder="Mô tả thêm về sản phẩm..."></textarea>
+      </div>
+      <div class="form-error hidden" id="sell-error"></div>
+      <button class="btn-submit btn-submit-sell" id="btn-do-sell"><i class="fas fa-paper-plane"></i> Đăng bán</button>
+    </div>
+  </div>
+
+  <!-- ====== MODAL: Cài đặt tài khoản ====== -->
+  <div class="modal-overlay hidden" id="modal-settings">
+    <div class="modal">
+      <button class="modal-close" id="modal-settings-close"><i class="fas fa-times"></i></button>
+      <div class="modal-icon"><i class="fas fa-cog"></i></div>
+      <h2>Cài đặt tài khoản</h2>
+      <p class="modal-subtitle">Cập nhật thông tin cá nhân của bạn ✏️</p>
+
+      <div class="form-group">
+        <label for="settings-name"><i class="fas fa-user"></i> Họ tên</label>
+        <input type="text" id="settings-name" placeholder="Họ tên">
+      </div>
+      <div class="form-group">
+        <label for="settings-email"><i class="fas fa-envelope"></i> Email</label>
+        <input type="email" id="settings-email" placeholder="Email" disabled>
+      </div>
+      <div class="form-group">
+        <label for="settings-phone"><i class="fas fa-phone"></i> Số điện thoại</label>
+        <input type="text" id="settings-phone" placeholder="VD: 0901234567">
+      </div>
+      <div class="form-group">
+        <label for="settings-school"><i class="fas fa-university"></i> Trường</label>
+        <div class="autocomplete-wrapper" id="school-autocomplete">
+          <input type="text" id="settings-school" placeholder="Tìm và chọn trường..." autocomplete="off">
+          <div class="autocomplete-list hidden" id="school-autocomplete-list"></div>
+        </div>
+      </div>
+      <div class="form-error hidden" id="settings-error"></div>
+      <button class="btn-submit" id="btn-save-settings"><i class="fas fa-save"></i> Lưu thay đổi</button>
+    </div>
+  </div>
+
+  <!-- ====== TOAST ====== -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <a href="#" class="footer-logo">
+            <div class="logo-icon"><i class="fas fa-graduation-cap"></i></div>
+            UniPass
+          </a>
+          <nav class="footer-links">
+            <a href="#">Về UniPass</a>
+            <a href="#">Điều khoản</a>
+            <a href="#">Chính sách bảo mật</a>
+            <a href="#">Liên hệ</a>
+          </nav>
+        </div>
+        <div class="footer-right">
+          Mua gần trường <span>•</span> Tái sử dụng <span>•</span> Tiết kiệm hơn 💚
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
